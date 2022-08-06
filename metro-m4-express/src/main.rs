@@ -16,6 +16,7 @@ use hal::usb::UsbBus;
 use pac::{interrupt, CorePeripherals, Peripherals};
 
 use usb_device::bus::UsbBusAllocator;
+use usb_device::test_class;
 use usb_device::prelude::*;
 
 #[entry]
@@ -46,15 +47,11 @@ fn main() -> ! {
     };
 
     unsafe {
-        // USB_SERIAL = Some(SerialPort::new(bus_allocator));
+        let class = test_class::TestClass::new(bus_allocator);
         USB_BUS = Some(
-            UsbDeviceBuilder::new(bus_allocator, UsbVidPid(0x2222, 0x3333))
-                .manufacturer("Fake company")
-                .product("Serial port")
-                .serial_number("TEST")
-                // .device_class(USB_CLASS_CDC)
-                .build(),
+            class.make_device(bus_allocator)
         );
+        USB_TEST = Some(class);
     }
 
     unsafe {
@@ -70,21 +67,23 @@ fn main() -> ! {
 
     red_led.set_low().unwrap(); // LED off
 
+    // All the work is interrupt driven
     loop {}
 }
 
 static mut USB_ALLOCATOR: Option<UsbBusAllocator<UsbBus>> = None;
 static mut USB_BUS: Option<UsbDevice<UsbBus>> = None;
-// static mut USB_SERIAL: Option<SerialPort<UsbBus>> = None;
+static mut USB_TEST: Option<test_class::TestClass<UsbBus>> = None;
 
 fn poll_usb() {
     unsafe {
         if let Some(usb_dev) = USB_BUS.as_mut() {
-            // if let Some(serial) = USB_SERIAL.as_mut() {
-                usb_dev.poll(&mut []);
-            // };
+            if let Some(test) = USB_TEST.as_mut() {
+                usb_dev.poll(&mut [test]);
+                test.poll(); // TODO unclear if this is necessary, since above should do it?
+            }
         }
-    };
+    }
 }
 
 #[interrupt]

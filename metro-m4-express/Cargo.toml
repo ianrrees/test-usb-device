@@ -6,7 +6,11 @@ edition = "2021"
 [dependencies]
 cortex-m = "0.7"
 panic-halt = "0.2"
-usb-device = "0.2"
+
+[dependencies.usb-device]
+version = "0.2"
+# TODO this may not be necessary
+features = ["control-buffer-256"]
 
 [dependencies.metro_m4]
 git = "https://github.com/atsamd-rs/atsamd"
