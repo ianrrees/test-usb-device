@@ -1,4 +1,4 @@
-# Adafruit Metro M4 usb-device test firmware
+# Adafruit Metro M0 usb-device test firmware
 
 Usually, this will be installed over SWD, a [cargo-embed](https://github.com/probe-rs/cargo-embed) config file is included.
 
@@ -6,10 +6,10 @@ To avoid potential timing-related issues, it's recommended to run the tests with
 
 ## Prerequisites
 
-TODO toolchain
 ```
+$ rustup target add thumbv6m-none-eabi
 $ cargo install cargo-embed
 ```
 
 ## Installing
-With the Metro M4 and a debug probe (a J-Link was used for initial development) connected via SWD, `cargo embed --release`
+With the Metro M0 and a debug probe (a [hs-probe](https://github.com/probe-rs/hs-probe) was used for initial development) connected via SWD, `cargo embed --release`

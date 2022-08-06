@@ -6,8 +6,8 @@ To avoid potential timing-related issues, it's recommended to run the tests with
 
 ## Prerequisites
 
-TODO toolchain
 ```
+$ rustup target add thumbv7em-none-eabihf
 $ cargo install cargo-embed
 ```
 
