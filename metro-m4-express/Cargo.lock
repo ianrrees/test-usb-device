@@ -34,6 +34,7 @@ dependencies = [
  "rand_core",
  "seq-macro",
  "typenum",
+ "usb-device",
  "vcell",
  "void",
 ]
@@ -164,6 +165,7 @@ source = "git+https://github.com/atsamd-rs/atsamd#b82ab9ab0566deace39a6e8af6c963
 dependencies = [
  "atsamd-hal",
  "cortex-m-rt",
+ "usb-device",
 ]
 
 [[package]]
@@ -304,8 +306,10 @@ dependencies = [
 name = "test-usb-device-metro-m4-express"
 version = "0.1.0"
 dependencies = [
+ "cortex-m",
  "metro_m4",
  "panic-halt",
+ "usb-device",
 ]
 
 [[package]]
@@ -319,6 +323,11 @@ name = "unicode-ident"
 version = "1.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c4f5b37a154999a8f3f98cc23a628d850e154479cd94decf3414696e12e31aaf"
+
+[[package]]
+name = "usb-device"
+version = "0.2.9"
+source = "git+https://github.com/rust-embedded-community/usb-device?branch=master#2297008082132dcaef7b79b4e5c09a7dad0b8c0f"
 
 [[package]]
 name = "vcell"
