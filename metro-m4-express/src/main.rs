@@ -9,6 +9,7 @@ use bsp::pac;
 use panic_halt as _;
 
 use bsp::entry;
+use cortex_m::asm::delay as cycle_delay;
 use cortex_m::peripheral::NVIC;
 use hal::clock::GenericClockController;
 use hal::prelude::*;
@@ -16,8 +17,8 @@ use hal::usb::UsbBus;
 use pac::{interrupt, CorePeripherals, Peripherals};
 
 use usb_device::bus::UsbBusAllocator;
-use usb_device::test_class;
 use usb_device::prelude::*;
+use usb_device::test_class;
 
 #[entry]
 fn main() -> ! {
@@ -31,7 +32,7 @@ fn main() -> ! {
         &mut peripherals.NVMCTRL,
     );
     let pins = bsp::Pins::new(peripherals.PORT);
-    let mut red_led = pins.d13.into_push_pull_output();
+    let mut red_led: bsp::RedLed = pins.d13.into();
 
     red_led.set_high().unwrap(); // LED on
 
@@ -48,9 +49,7 @@ fn main() -> ! {
 
     unsafe {
         let class = test_class::TestClass::new(bus_allocator);
-        USB_BUS = Some(
-            class.make_device(bus_allocator)
-        );
+        USB_BUS = Some(class.make_device(bus_allocator));
         USB_TEST = Some(class);
     }
 
@@ -67,8 +66,14 @@ fn main() -> ! {
 
     red_led.set_low().unwrap(); // LED off
 
-    // All the work is interrupt driven
-    loop {}
+    // All the real work is interrupt driven, blink the red LED just to indicate
+    // MCU is running
+    loop {
+        red_led.set_low().unwrap(); // LED off
+        cycle_delay(15 * 1024 * 1024);
+        red_led.set_high().unwrap(); // LED on
+        cycle_delay(15 * 1024 * 1024);
+    }
 }
 
 static mut USB_ALLOCATOR: Option<UsbBusAllocator<UsbBus>> = None;
