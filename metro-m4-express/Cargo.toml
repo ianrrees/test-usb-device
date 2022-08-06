@@ -6,11 +6,7 @@ edition = "2021"
 [dependencies]
 cortex-m = "0.7"
 panic-halt = "0.2"
-
-[dependencies.usb-device]
-version = "0.2"
-# TODO this may not be necessary
-features = ["control-buffer-256"]
+usb-device = { path = "../usb-device" }
 
 [dependencies.metro_m4]
 git = "https://github.com/atsamd-rs/atsamd"
@@ -18,4 +14,4 @@ features = ["usb"]
 
 # The usb-device dependency is specified as a patch, because atsamd uses it too
 [patch.crates-io]
-usb-device = { git = "https://github.com/rust-embedded-community/usb-device", branch = "master" }
+usb-device = { path = "../usb-device" }
