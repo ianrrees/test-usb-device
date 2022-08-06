@@ -1,0 +1,10 @@
+[package]
+name = "test-usb-device-metro-m4-express"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+panic-halt = "0.2"
+
+[dependencies.metro_m4]
+git = "https://github.com/atsamd-rs/atsamd"
