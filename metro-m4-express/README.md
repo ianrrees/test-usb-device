@@ -1,26 +1,15 @@
-# Adafruit Metro M4 Board Support Crate
+# Adafruit Metro M4 usb-device test firmware
 
-This crate provides a type-safe API for working with the [Adafruit Metro M4
-board](https://www.adafruit.com/product/3382).
+Usually, this will be installed over SWD, a [cargo-embed](https://github.com/probe-rs/cargo-embed) config file is included.
+
+To avoid potential timing-related issues, it's recommended to run the tests with release firmware.
 
 ## Prerequisites
-* Install the cross compile toolchain `rustup target add thumbv7em-none-eabihf`
-* Install [cargo-hf2 the hf2 bootloader flasher tool](https://crates.io/crates/cargo-hf2) however your platform requires
 
-## Uploading an example
-Check out the repository for examples:
-
-https://github.com/atsamd-rs/atsamd/tree/master/boards/metro_m4/examples
-
-* Be in this directory `cd boards/metro_m4`
-* Put your device in bootloader mode usually by hitting the reset button twice.
-* Build and upload in one step
+TODO toolchain
 ```
-$ cargo hf2 --release --example blinky_basic
-    Finished release [optimized + debuginfo] target(s) in 0.19s
-    Searching for a connected device with known vid/pid pair.
-    Trying  Ok(Some("Adafruit Industries")) Ok(Some("PyBadge"))
-    Flashing "/Users/User/atsamd/boards/metro_m4/target/thumbv7em-none-eabihf/release/examples/blinky_basic"
-    Finished in 0.079s
-$
+$ cargo install cargo-embed
 ```
+
+## Installing
+With the Metro M4 and a debug probe (a J-Link was used for initial development) connected via SWD, `cargo embed --release`
