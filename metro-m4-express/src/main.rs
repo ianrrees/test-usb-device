@@ -1,12 +1,13 @@
 #![no_std]
 #![no_main]
 
+extern crate defmt_rtt;
+extern crate panic_probe;
+
 use metro_m4 as bsp;
 
 use bsp::hal;
 use bsp::pac;
-
-use panic_halt as _;
 
 use bsp::entry;
 use cortex_m::asm::delay as cycle_delay;
@@ -64,7 +65,10 @@ fn main() -> ! {
         NVIC::unmask(interrupt::USB_OTHER);
     }
 
-    red_led.set_low().unwrap(); // LED off
+    // If info level logs aren't appearing in defmt console, may need to do
+    // something like:
+    // DEFMT_LOG=debug cargo embed --release
+    defmt::info!("Starting main loop");
 
     // All the real work is interrupt driven, blink the red LED just to indicate
     // MCU is running

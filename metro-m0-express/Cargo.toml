@@ -5,8 +5,13 @@ edition = "2021"
 
 [dependencies]
 cortex-m = "0.7"
-panic-halt = "0.2"
 usb-device = { path = "../usb-device" }
+defmt = "0.3"
+defmt-rtt = "0.4.0"
+
+[dependencies.panic-probe]
+version = "0.3.2"
+features = ["print-defmt"]
 
 [dependencies.metro_m0]
 git = "https://github.com/atsamd-rs/atsamd"
