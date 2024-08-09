@@ -21,6 +21,15 @@ use usb_device::bus::UsbBusAllocator;
 use usb_device::prelude::*;
 use usb_device::test_class;
 
+struct Samd21Hardware {}
+impl test_class::HardwareSupport for Samd21Hardware {
+    fn hard_reset() -> ! {
+        defmt::error!("hard_reset() impl");
+        use cortex_m::peripheral::SCB;
+        SCB::sys_reset()
+    }
+}
+
 #[entry]
 fn main() -> ! {
     let mut peripherals = Peripherals::take().unwrap();
@@ -75,14 +84,14 @@ fn main() -> ! {
 
 static mut USB_ALLOCATOR: Option<UsbBusAllocator<UsbBus>> = None;
 static mut USB_BUS: Option<UsbDevice<UsbBus>> = None;
-static mut USB_TEST: Option<test_class::TestClass<UsbBus>> = None;
+static mut USB_TEST: Option<test_class::TestClass<UsbBus, Samd21Hardware>> = None;
 
 fn poll_usb() {
     unsafe {
         if let Some(usb_dev) = USB_BUS.as_mut() {
             if let Some(test) = USB_TEST.as_mut() {
                 usb_dev.poll(&mut [test]);
-                test.poll(); // TODO unclear if this is necessary, since above should do it?
+                test.poll();
             }
         }
     }
