@@ -17,6 +17,7 @@ dependencies = [
 [[package]]
 name = "atsamd-hal"
 version = "0.17.0"
+source = "git+https://github.com/ianrrees/atsamd?branch=enumeration#02fab608f2820078f4b0a65dbecaf3482c5d6d85"
 dependencies = [
  "aes",
  "atsamd-hal-macros",
@@ -46,6 +47,7 @@ dependencies = [
 [[package]]
 name = "atsamd-hal-macros"
 version = "0.1.0"
+source = "git+https://github.com/ianrrees/atsamd?branch=enumeration#02fab608f2820078f4b0a65dbecaf3482c5d6d85"
 dependencies = [
  "litrs",
  "phf",
@@ -57,6 +59,7 @@ dependencies = [
 [[package]]
 name = "atsamd21g"
 version = "0.13.0"
+source = "git+https://github.com/ianrrees/atsamd?branch=enumeration#02fab608f2820078f4b0a65dbecaf3482c5d6d85"
 dependencies = [
  "cortex-m",
  "cortex-m-rt",
@@ -324,6 +327,7 @@ dependencies = [
 [[package]]
 name = "metro_m0"
 version = "0.14.0"
+source = "git+https://github.com/ianrrees/atsamd?branch=enumeration#02fab608f2820078f4b0a65dbecaf3482c5d6d85"
 dependencies = [
  "atsamd-hal",
  "cortex-m",
