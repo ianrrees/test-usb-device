@@ -14,7 +14,8 @@ version = "0.3.2"
 features = ["print-defmt"]
 
 [dependencies.metro_m4]
-git = "https://github.com/atsamd-rs/atsamd"
+git = "https://github.com/ianrrees/atsamd"
+branch = "enumeration"
 features = ["usb"]
 
 # The usb-device dependency is specified as a patch, because atsamd uses it too
