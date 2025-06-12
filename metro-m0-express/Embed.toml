@@ -6,6 +6,6 @@ chip = "ATSAMD21G18AU"
 
 [default.rtt]
 enabled = true
-channels = [
-    { up = 0, down = 0, up_mode = "BlockIfFull", format = "Defmt" },
+up_channels = [
+    { channel = 0, up_mode = "BlockIfFull", format = "Defmt" },
 ]
